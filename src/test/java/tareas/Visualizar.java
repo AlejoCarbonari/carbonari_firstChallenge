@@ -25,7 +25,7 @@ public class Visualizar implements Task {
     @Step("{} debería ver el alert exitoso")
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-
+            /* p/realizar pruebas con la documentacion [IGNORAR CLASE] */
         );
     }
 
