@@ -18,9 +18,21 @@ public class IrHacia implements Task {
         this.seccion = seccion;
     }
 
-    public static Performable seccionEmployees(){
-        seccionElegida = "Employees";
-        return Instrumented.instanceOf(IrHacia.class).withProperties(PaginaPrincipal.SECCION_EMPLOYEES);
+    public static Performable seccion(String seccion){
+        seccionElegida = seccion;
+        Target tgt; /* target auxiliar */
+
+        if (seccionElegida == "Employees") {
+            tgt = PaginaPrincipal.SECCION_EMPLOYEES;
+        } else if (seccionElegida == "Deads") {
+            tgt = PaginaPrincipal.SECCION_DEADS;
+        } else if (seccionElegida == "Extras") {
+            tgt = PaginaPrincipal.SECCION_EXTRAS;
+        } else {
+            tgt = null;
+        }
+
+        return Instrumented.instanceOf(IrHacia.class).withProperties(tgt);
     }
 
     @Override

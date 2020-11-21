@@ -1,13 +1,18 @@
 
+import UI.PaginaPrincipal;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.serenitybdd.screenplay.ensure.Ensure;
 import net.thucydides.core.annotations.Managed;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import tareas.*;
+
+import static net.serenitybdd.screenplay.GivenWhenThen.seeIf;
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
 @RunWith(SerenityRunner.class)
 public class Runner {
@@ -34,13 +39,30 @@ public class Runner {
 
         /* Luego, el actor quiere ir a la sección de Employees */
         actor.attemptsTo(
-                IrHacia.seccionEmployees()
+                IrHacia.seccion("Employees")
         );
 
         /* Luego, el actor quiere agregar un nuevo ítem */
         actor.attemptsTo(
-                HacerClickEn.boton()
-                        .then(Rellenar.campos("alejo", "Executive Producer"))
+                HacerClickEn.boton(PaginaPrincipal.BOTON_ADD_ITEM)
+                .then(Rellenar.campos("ZeuS", 3))
+        );
+
+        /* Entonces, debería visualizar el alert exitoso */
+        actor.attemptsTo(
+                Ensure.that(PaginaPrincipal.ALERT_SUCCESS).isDisplayed()
         );
     }
+
+    @Test
+    public void darDeAltaUnItemEnDeads() {
+        actor.has(Decidido.abrirElNavegador());
+
+        actor.attemptsTo(
+                IrHacia.seccion("Deads")
+                .then(HacerClickEn.boton(PaginaPrincipal.BOTON_ADD_ITEM))
+                .then(Rellenar.campos("Zeus", "Uknown"))
+        );
+    }
+
 }

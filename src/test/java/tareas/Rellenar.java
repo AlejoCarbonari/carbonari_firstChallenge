@@ -11,26 +11,49 @@ import net.thucydides.core.annotations.Step;
 import org.openqa.selenium.By;
 
 public class Rellenar implements Task {
-    private String nombre, opcion;
 
-    public Rellenar(String nombre, String opcion){
+    private String nombre, razon;
+    private int opc_posicion;
+
+    public Rellenar(String nombre, int opc_posicion){
         this.nombre = nombre;
-        this.opcion = opcion;
+        this.opc_posicion = opc_posicion;
     }
 
-    public static Performable campos(String nombre, String opcion){
-        return Instrumented.instanceOf(Rellenar.class).withProperties(nombre, opcion);
+    public Rellenar(String nombre, String razon){
+        this.nombre = nombre;
+        this.razon = razon;
+    }
+
+    public static Performable campos(String nombre, int opc_posicion){
+        return Instrumented.instanceOf(Rellenar.class).withProperties(nombre, opc_posicion);
+    }
+
+    public static Performable campos(String nombre, String razon){
+        return Instrumented.instanceOf(Rellenar.class).withProperties(nombre, razon);
     }
 
     @Override
-    @Step("{0} decide agregar un ítem nuevo")
+    @Step("{0} decide rellenar los campos")
     public <T extends Actor> void performAs(T actor) {
-        actor.attemptsTo(
-                SendKeys.of(this.nombre)
-                .into(By.cssSelector("div.popup-content div.form-row.row:nth-child(1) > input:nth-child(2)"))
-                .then(Click.on(By.xpath("//option[@value='Co-Executive Producer']")))
-                .then(Click.on(PaginaPrincipal.BOTON_SUBMIT))
+        if (this.opc_posicion != 0) {
+            actor.attemptsTo(
+                    SendKeys.of(this.nombre)
+                            .into(PaginaPrincipal.CAMPO_NAME)
+                 /* LUEGO */.then(Click.on(By.xpath("//select//option[position()='"+opc_posicion+"']")))
+                            .then(Click.on(PaginaPrincipal.BOTON_SUBMIT))
 
-        );
+            );
+        } else if (this.razon != "") {
+            actor.attemptsTo(
+                    SendKeys.of(this.nombre)
+                            .into(PaginaPrincipal.CAMPO_NAME)
+                 /* LUEGO */.then(SendKeys.of(this.razon)
+                            .into(By.cssSelector("form:nth-child(1) div.form-row.row:nth-child(2) > input:nth-child(2)")))
+                 /* LUEGO */.then(Click.on(PaginaPrincipal.BOTON_SUBMIT))
+
+            );
+        }
     }
+
 }
