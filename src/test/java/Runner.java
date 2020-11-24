@@ -4,6 +4,7 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.ensure.Ensure;
+import net.serenitybdd.screenplay.questions.targets.TheTarget;
 import net.thucydides.core.annotations.Managed;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,20 +12,20 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import tareas.*;
 
-import static net.serenitybdd.screenplay.GivenWhenThen.seeIf;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static org.hamcrest.Matchers.is;
 
 @RunWith(SerenityRunner.class)
 public class Runner {
 
     public Runner(){
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/browserBinaries/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/browserBinaries/chromedriver");
     }
+
+    Actor actor;
 
     @Managed(options = "marionette", driver = "chrome")
     WebDriver nvg;
-
-    Actor actor;
 
     @Before
     public void definimosElEsecenario(){

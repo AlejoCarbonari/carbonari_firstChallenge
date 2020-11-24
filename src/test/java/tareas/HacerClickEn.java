@@ -22,16 +22,13 @@ public class HacerClickEn implements Task {
 
     public String devuelveDescripcionBoton(Target boton){
         String descripcion_boton;
+        
+        descripcion_boton =
+                (boton == PaginaPrincipal.BOTON_ADD_ITEM) ? "add"
+                : (boton == PaginaPrincipal.BOTON_EDIT_ITEM) ? "edit"
+                : "delete";
 
-        if (boton == PaginaPrincipal.BOTON_ADD_ITEM) {
-            return "agregar ítem";
-        } else if (boton == PaginaPrincipal.BOTON_EDIT_ITEM) {
-            return "editar ítem";
-        } else if (boton == PaginaPrincipal.BOTON_DELETE_ITEM) {
-            return "eliminar ítem";
-        } else {
-            return "";
-        }
+        return descripcion_boton;
     }
 
     public static Performable boton(Target boton){

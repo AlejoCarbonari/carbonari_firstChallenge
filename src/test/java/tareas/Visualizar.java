@@ -1,17 +1,10 @@
 package tareas;
 
-import UI.PaginaPrincipal;
-import com.sun.glass.ui.View;
-import com.sun.javafx.sg.prism.NGMeshView;
-import io.cucumber.messages.internal.com.google.common.annotations.VisibleForTesting;
 import net.serenitybdd.core.steps.Instrumented;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.actions.SelectFromOptions;
-import net.serenitybdd.screenplay.actions.Switch;
 import net.thucydides.core.annotations.Step;
-import org.openqa.selenium.remote.server.handler.AcceptAlert;
 
 public class Visualizar implements Task {
 
